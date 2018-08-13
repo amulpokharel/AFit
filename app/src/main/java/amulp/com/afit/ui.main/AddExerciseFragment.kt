@@ -3,6 +3,7 @@ package amulp.com.afit.ui.main
 import amulp.com.afit.R
 import amulp.com.afit.utils.inflate
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +27,28 @@ class AddExerciseFragment: Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         add_exercise.setOnClickListener { addExercise() }
+
+        list_exercises.setOnClickListener { logExercises() }
     }
 
     private fun addExercise(){
+        viewModel.addExercise(
+                name.text.toString(),
+                reps.text.toString().toInt(),
+                num_sets.text.toString().toInt(),
+                upper.isActivated,
+                increment.text.toString().toDouble()
+        )
 
+        name.text.clear()
+        reps.text.clear()
+        num_sets.text.clear()
+        upper.isActivated = false
+        increment.text.clear()
+    }
+
+    private fun logExercises(){
+        Log.d("d", viewModel.getAllExercises().value.toString())
     }
 
 }
