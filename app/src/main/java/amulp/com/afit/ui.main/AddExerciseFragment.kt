@@ -29,7 +29,7 @@ class AddExerciseFragment: Fragment() {
     }
 
     private fun addExercise(){
-        
+
     }
 
 }
