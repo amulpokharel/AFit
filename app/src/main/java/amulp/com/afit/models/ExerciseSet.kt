@@ -4,6 +4,7 @@ import org.threeten.bp.LocalDateTime
 
 data class ExerciseSet(
         val exercise:String,
+        val weight:Double,
         val setNumber:Int,
         val reps:Int,
         val timeDate:LocalDateTime = LocalDateTime.now(),
