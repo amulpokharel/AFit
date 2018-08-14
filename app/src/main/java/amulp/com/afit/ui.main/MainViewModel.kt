@@ -8,7 +8,7 @@ import org.jetbrains.anko.doAsync
 
 class MainViewModel : ViewModel() {
     private val exerciseDao = MyApp.exerciseDb!!.exerciseDao()
-    var exercises:LiveData<List<Exercise>>? = null
+    var exercises:LiveData<List<Exercise>>
 
     init {
         exercises = exerciseDao.getAll()
@@ -20,9 +20,5 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getAllExercises():LiveData<List<Exercise>>{
-        if(exercises == null)
-            exercises = exerciseDao.getAll()
-        return exercises!!
-    }
+    fun getAllExercises():List<Exercise> = exerciseDao.getAllList()
 }

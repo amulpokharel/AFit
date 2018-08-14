@@ -3,6 +3,7 @@ package amulp.com.afit
 import amulp.com.afit.db.ExerciseDb
 import android.app.Application
 import android.content.Context
+import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
 
 class MyApp: Application() {
@@ -25,5 +26,6 @@ class MyApp: Application() {
         exerciseDb = ExerciseDb.getInstance(instance!!.applicationContext)
 
         AndroidThreeTen.init(this)
+        Stetho.initializeWithDefaults(this)
     }
 }

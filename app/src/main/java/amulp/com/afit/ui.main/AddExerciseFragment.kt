@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.add_exercise_fragment.*
+import org.jetbrains.anko.doAsync
 
 class AddExerciseFragment: Fragment() {
 
@@ -48,7 +49,9 @@ class AddExerciseFragment: Fragment() {
     }
 
     private fun logExercises(){
-        Log.d("d", viewModel.getAllExercises().value.toString())
+        doAsync {
+            Log.d("d", viewModel.getAllExercises().toString())
+        }
     }
 
 }
