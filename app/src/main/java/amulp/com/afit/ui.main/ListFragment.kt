@@ -2,11 +2,13 @@ package amulp.com.afit.ui.main
 
 import amulp.com.afit.R
 import amulp.com.afit.adapters.RecycleAdapter
+import amulp.com.afit.utils.parseString
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -14,7 +16,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.add_exercise_dialog.view.*
-import kotlinx.android.synthetic.main.exercise_item.*
 import kotlinx.android.synthetic.main.list_fragment.*
 import org.jetbrains.anko.*
 
@@ -72,7 +73,9 @@ class ListFragment : Fragment(), LifecycleOwner{
                             recycleAdapter.setData(viewModel.getAllExercises())
                             Log.d("d", "added ${dialogView.name.text}")
                         } else
+                        {
                             Log.d("d", "didn't add")
+                        }
                     }
 
                 }
@@ -96,11 +99,14 @@ class ListFragment : Fragment(), LifecycleOwner{
     private fun addExercise(){
         with(dialogView){
             viewModel.addExercise(
-                    name.text.toString(),
-                    reps.text.toString().toInt(),
-                    num_sets.text.toString().toInt(),
-                    upper.isActivated,
-                    increment.text.toString().toDouble()
+                    name.parseString(""),
+                    reps.parseString("5").toInt(),
+                    num_sets.parseString("3").toInt(),
+                    upper.isChecked,
+                    increment.parseString(when(upper.isChecked){
+                        true -> "5.0"
+                        false -> "2.5"
+                    }).toDouble()
             )
         }
     }

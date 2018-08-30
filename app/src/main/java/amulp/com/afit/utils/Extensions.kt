@@ -5,10 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 
 fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
 }
+
+fun EditText.parseString(defaultStr:String):String{
+    if(this.text.toString().isNullOrEmpty())
+        return defaultStr
+    else
+        return this.text.toString()
+}
+
 
 /**
  * Extension method to show a keyboard for View.
