@@ -30,7 +30,7 @@ class RecycleAdapter(var items: List<Exercise>, val listener: (Exercise) -> Unit
             firstLine.text = item.name
             secondLine.text = item.toString()
 
-            setOnClickListener { listener(item) }
+            deleteButton.setOnClickListener { listener(item) }
         }
     }
 }
