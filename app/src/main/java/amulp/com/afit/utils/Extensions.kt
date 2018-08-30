@@ -11,9 +11,9 @@ fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
 }
 
-fun EditText.parseString(defaultStr:String):String{
+fun EditText.parseString(defaultStr:String?):String{
     if(this.text.toString().isNullOrEmpty())
-        return defaultStr
+        return defaultStr!!
     else
         return this.text.toString()
 }

@@ -3,12 +3,12 @@ package amulp.com.afit.ui.main
 import amulp.com.afit.R
 import amulp.com.afit.adapters.RecycleAdapter
 import amulp.com.afit.utils.parseString
+import amulp.com.afit.utils.showKeyboard
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -58,7 +58,6 @@ class ListFragment : Fragment(), LifecycleOwner{
     private fun showAddDialog(){
         val layoutInflater = LayoutInflater.from(context)
         dialogView = layoutInflater.inflate(R.layout.add_exercise_dialog, null)
-
         val alertBuilder = AlertDialog.Builder(context!!)
 
         alertBuilder.setView(dialogView)
@@ -68,7 +67,7 @@ class ListFragment : Fragment(), LifecycleOwner{
                 .setPositiveButton("Add") { _, _ ->
                     Log.d("debug", "adding!")
                     doAsync {
-                        if (viewModel.getExercise(dialogView.name.text.toString()) == null) {
+                        if(!(dialogView.name.parseString("").isEmpty()) && viewModel.getExercise(dialogView.name.text.toString()) == null) {
                             addExercise()
                             recycleAdapter.setData(viewModel.getAllExercises())
                             Log.d("d", "added ${dialogView.name.text}")
@@ -86,6 +85,7 @@ class ListFragment : Fragment(), LifecycleOwner{
                 }
                 .create()
                 .show()
+        dialogView.showKeyboard()
     }
 
     private fun deleteExercise(name:String){
@@ -106,7 +106,8 @@ class ListFragment : Fragment(), LifecycleOwner{
                     increment.parseString(when(upper.isChecked){
                         true -> "5.0"
                         false -> "2.5"
-                    }).toDouble()
+                    }).toDouble(),
+                    starting_weight.parseString("100").toDouble()
             )
         }
     }

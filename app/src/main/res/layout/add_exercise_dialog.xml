@@ -18,7 +18,8 @@
         app:layout_constraintBottom_toTopOf="@+id/reps"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        app:layout_constraintVertical_chainStyle="spread_inside">
+    </EditText>
 
     <EditText
         android:id="@+id/reps"
@@ -52,9 +53,21 @@
         android:layout_marginBottom="8dp"
         android:hint="Number of Sets (Default = 3)"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/upper"
+        app:layout_constraintBottom_toTopOf="@+id/starting_weight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/increment" />
+
+    <EditText
+        android:id="@+id/starting_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Starting Weight"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/upper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/num_sets" />
 
     <Switch
         android:id="@+id/upper"
@@ -65,5 +78,5 @@
         android:text="Upper Body"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/num_sets" />
+        app:layout_constraintTop_toBottomOf="@+id/starting_weight" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,9 +14,9 @@ class MainViewModel : ViewModel() {
         exercises = exerciseDao.getAll()
     }
 
-    fun addExercise(name:String, reps:Int, numSets:Int, upperBody:Boolean,increments:Double){
+    fun addExercise(name:String, reps:Int, numSets:Int, upperBody:Boolean,increments:Double, startingWeight:Double){
         doAsync {
-            exerciseDao.insert(Exercise(name, reps, numSets, upperBody, increments))
+            exerciseDao.insert(Exercise(name, reps, numSets, upperBody, increments, startingWeight))
         }
     }
 

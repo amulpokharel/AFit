@@ -14,5 +14,15 @@ data class Exercise(
         val increments:Double = when(upperBody){
             true -> 5.0
             false -> 2.5
-        }
-)
+        },
+        var currentWeight:Double
+){
+
+    fun deload(){
+        currentWeight*=0.90
+    }
+
+    fun increment(){
+        currentWeight+=increments
+    }
+}
