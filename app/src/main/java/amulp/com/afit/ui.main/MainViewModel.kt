@@ -20,5 +20,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun getExercisesLive() = exerciseDao.getAll()
+
+    fun getExercise(name:String) = exerciseDao.getExercise(name)
+
     fun getAllExercises():List<Exercise> = exerciseDao.getAllList()
 }
