@@ -14,9 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.add_exercise_dialog.view.*
+import kotlinx.android.synthetic.main.exercise_item.*
 import kotlinx.android.synthetic.main.list_fragment.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 
 class ListFragment : Fragment(), LifecycleOwner{
@@ -39,16 +39,19 @@ class ListFragment : Fragment(), LifecycleOwner{
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.getExercisesLive().observe(this@ListFragment, Observer { exercises ->
-            recycleAdapter.setData(exercises)  } )
+            recycleAdapter.setData(exercises)
+        })
 
         doAsync {
             recycleAdapter = RecycleAdapter(viewModel.getAllExercises()) {
-                context!!.toast(it.name + " clicked")
+                deleteExercise(it.name)
             }
+
             recyclerView.adapter = recycleAdapter
         }
 
         fab.setOnClickListener { showAddDialog() }
+
     }
 
     private fun showAddDialog(){
@@ -81,6 +84,14 @@ class ListFragment : Fragment(), LifecycleOwner{
                 .create()
                 .show()
     }
+
+    private fun deleteExercise(name:String){
+        context!!.alert("Are you sure?", "Deleting exercise") {
+            yesButton { viewModel.deleteExercise(name) }
+            noButton {}
+        }.show()
+    }
+
 
     private fun addExercise(){
         with(dialogView){
