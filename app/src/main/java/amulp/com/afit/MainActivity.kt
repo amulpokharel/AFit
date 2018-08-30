@@ -1,6 +1,5 @@
 package amulp.com.afit
 
-import amulp.com.afit.ui.main.AddExerciseFragment
 import amulp.com.afit.ui.main.ListFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
