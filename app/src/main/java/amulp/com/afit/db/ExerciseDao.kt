@@ -24,6 +24,9 @@ interface ExerciseDao {
     @Insert(onConflict = REPLACE)
     fun insertList(exercise:List<Exercise>)
 
+    @Query("DELETE FROM exercises WHERE name = :exerciseName")
+    fun deleteExercise(exerciseName:String)
+
     @Query("DELETE from exercises")
     fun deleteAll()
 }

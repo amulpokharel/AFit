@@ -20,6 +20,10 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun deleteExercise(exerciseName:String) {
+        doAsync { exerciseDao.deleteExercise(exerciseName) }
+    }
+
     fun getExercisesLive() = exerciseDao.getAll()
 
     fun getExercise(name:String) = exerciseDao.getExercise(name)
