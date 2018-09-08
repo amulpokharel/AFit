@@ -8,9 +8,9 @@ data class Routine(
         @PrimaryKey
         val name:String,
 
-        var days: MutableList<Day>,
+        var days: MutableList<Day> = mutableListOf<Day>(),
         private var currDay:Int = 0,
-        val sets:MutableList<ExerciseSet> = mutableListOf()
+        val sets:MutableList<ExerciseSet> = mutableListOf<ExerciseSet>()
 )
 {
     fun addDay(exercises:MutableList<String>){
