@@ -1,7 +1,13 @@
 package amulp.com.afit.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "routines")
 data class Routine(
+        @PrimaryKey
         val name:String,
+
         var days: MutableList<Day>,
         private var currDay:Int = 0,
         val sets:MutableList<ExerciseSet> = mutableListOf()
