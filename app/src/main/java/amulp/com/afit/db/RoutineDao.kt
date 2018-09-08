@@ -9,6 +9,9 @@ import androidx.room.Query
 
 @Dao
 interface RoutineDao {
+
+    //TODO make smaller queries? for days/sets
+
     @Query("SELECT * FROM routines")
     fun getAll(): LiveData<List<Routine>>
 
