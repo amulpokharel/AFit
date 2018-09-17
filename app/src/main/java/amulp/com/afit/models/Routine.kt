@@ -1,15 +1,22 @@
 package amulp.com.afit.models
 
+import amulp.com.afit.db.converters.DayConverter
+import amulp.com.afit.db.converters.ExerciseSetConverter
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 
 @Entity(tableName = "routines")
 data class Routine(
         @PrimaryKey
         val name:String,
 
+        @TypeConverters(DayConverter::class)
         var days: MutableList<Day> = mutableListOf<Day>(),
-        private var currDay:Int = 0,
+
+        var currDay:Int = 0,
+
+        @TypeConverters(ExerciseSetConverter::class)
         val sets:MutableList<ExerciseSet> = mutableListOf<ExerciseSet>()
 )
 {
@@ -26,3 +33,5 @@ data class Routine(
 
     fun nextDay() = currDay % days.size
 }
+
+

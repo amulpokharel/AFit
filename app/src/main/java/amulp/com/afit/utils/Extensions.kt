@@ -19,6 +19,8 @@ fun EditText.parseString(defaultStr:String?):String{
 }
 
 
+
+
 /**
  * Extension method to show a keyboard for View.
  */
