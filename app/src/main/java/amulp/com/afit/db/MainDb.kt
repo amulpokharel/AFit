@@ -1,24 +1,25 @@
 package amulp.com.afit.db
 
-import amulp.com.afit.models.Exercise
+import amulp.com.afit.models.Routine
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Exercise::class], version = 1, exportSchema = false)
-abstract class ExerciseDb : RoomDatabase() {
+@Database(entities = [Routine::class], version = 1, exportSchema = false)
+abstract class RoutineDb : RoomDatabase() {
 
+    abstract fun routineDao(): RoutineDao
     abstract fun exerciseDao(): ExerciseDao
 
     companion object {
-        private var INSTANCE: ExerciseDb? = null
+        private var INSTANCE: RoutineDb? = null
 
-        fun getInstance(context: Context): ExerciseDb? {
+        fun getInstance(context: Context): RoutineDb? {
             if (INSTANCE == null) {
-                synchronized(ExerciseDb::class) {
+                synchronized(RoutineDb::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                            ExerciseDb::class.java, "exercises.db")
+                            RoutineDb::class.java, "afit.db")
                             .build()
                 }
             }

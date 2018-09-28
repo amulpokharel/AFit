@@ -8,6 +8,6 @@ import com.squareup.moshi.JsonClass
 @Entity
 @JsonClass(generateAdapter = true)
 data class Day(
-        val number:Int,
-        var exercises: MutableList<String>
+        val number:Int = 0,
+        var exercises: MutableList<String> = mutableListOf()
 )

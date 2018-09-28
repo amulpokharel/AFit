@@ -1,22 +1,20 @@
 package amulp.com.afit.models
 
-import amulp.com.afit.db.converters.DayConverter
-import amulp.com.afit.db.converters.ExerciseSetConverter
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 
 @Entity(tableName = "routines")
 data class Routine(
         @PrimaryKey
-        val name:String,
+        val name:String = "",
 
-        @TypeConverters(DayConverter::class)
+        @Embedded
         var days: MutableList<Day> = mutableListOf<Day>(),
 
         var currDay:Int = 0,
 
-        @TypeConverters(ExerciseSetConverter::class)
+        @Embedded
         val sets:MutableList<ExerciseSet> = mutableListOf<ExerciseSet>()
 )
 {

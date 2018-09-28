@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "exercises")
 data class Exercise(
         @PrimaryKey
-        val name:String,
+        val name:String = "",
 
         val reps:Int = 5,
         val numSets:Int = 3,
@@ -15,7 +15,7 @@ data class Exercise(
             true -> 5.0
             false -> 2.5
         },
-        var currentWeight:Double
+        var currentWeight:Double = 0.0
 ){
 
     fun deload(){
