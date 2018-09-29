@@ -7,14 +7,18 @@ import amulp.com.afit.utils.inflate
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.add_routine_dialog.view.*
+import kotlinx.android.synthetic.main.routine_item.view.*
 import kotlinx.android.synthetic.main.exercise_item.view.*
 
 
 class RecycleAdapter(var items: List<Any>, val listener: (Any) -> Unit)
     : RecyclerView.Adapter<RecycleAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent.inflate(R.layout.exercise_item))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when(items.first()){
+        is Exercise -> ViewHolder(parent.inflate(R.layout.exercise_item))
+        is Routine -> ViewHolder(parent.inflate(R.layout.routine_item))
+        else -> ViewHolder(parent.inflate(R.layout.exercise_item))
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], listener)
 
@@ -28,15 +32,14 @@ class RecycleAdapter(var items: List<Any>, val listener: (Any) -> Unit)
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Any, listener: (Any) -> Unit) = with(itemView) {
             if(item is Exercise){
-                firstLine.text = item.name
-                secondLine.text = item.toString()
-                deleteButton.setOnClickListener { listener(item) }
+                exerciseFirstLine.text = item.name
+                exerciseSecondLine.text = item.toString()
+                exerciseDeleteButton.setOnClickListener { listener(item) }
             }
             else if( item is Routine){
-                firstLine.text = item.name
-                secondLine.text = item.toString()
-
-                deleteButton.setOnClickListener{listener(item)}
+                routineFirstLine.text = item.name
+                routineSecondLine.text = item.toString()
+                routineDeleteButton.setOnClickListener{listener(item)}
             }
         }
     }
