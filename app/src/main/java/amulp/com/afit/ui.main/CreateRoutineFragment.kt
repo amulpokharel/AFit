@@ -2,6 +2,7 @@ package amulp.com.afit.ui.main
 
 import amulp.com.afit.R
 import amulp.com.afit.adapters.RecycleAdapter
+import amulp.com.afit.models.Routine
 import amulp.com.afit.utils.parseString
 import amulp.com.afit.utils.showKeyboard
 import android.os.Bundle
@@ -33,7 +34,7 @@ class CreateRoutineFragment : Fragment(), LifecycleOwner {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.list_fragment, container, false)
+        return inflater.inflate(R.layout.create_routine_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -41,13 +42,13 @@ class CreateRoutineFragment : Fragment(), LifecycleOwner {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        viewModel.getExercisesLive().observe(this@CreateRoutineFragment, Observer { exercises ->
-            recycleAdapter.setData(exercises)
+        viewModel.getRoutineLive().observe(this@CreateRoutineFragment, Observer { routines ->
+            recycleAdapter.setData(routines)
         })
 
         doAsync {
-            recycleAdapter = RecycleAdapter(viewModel.getAllExercises()) {
-                deleteExercise(it.name)
+            recycleAdapter = RecycleAdapter(viewModel.getAllRoutines()) {
+                deleteRoutine((it as Routine).name)
             }
 
             recyclerView.adapter = recycleAdapter
@@ -70,8 +71,8 @@ class CreateRoutineFragment : Fragment(), LifecycleOwner {
                     Log.d("debug", "adding!")
                     doAsync {
                         if (!(dialogView.name.parseString("").isEmpty())) {
-                            addExercise()
-                            recycleAdapter.setData(viewModel.getAllExercises())
+                            addRoutine()
+                            recycleAdapter.setData(viewModel.getAllRoutines())
                             Log.d("d", "added ${dialogView.name.text}")
                         } else {
                             Log.d("d", "didn't add")
@@ -89,26 +90,18 @@ class CreateRoutineFragment : Fragment(), LifecycleOwner {
         dialogView.showKeyboard()
     }
 
-    private fun deleteExercise(name: String) {
-        context!!.alert("Are you sure?", "Deleting exercise") {
-            yesButton { viewModel.deleteExercise(name) }
+    private fun deleteRoutine(name: String) {
+        context!!.alert("Are you sure?", "Deleting routine") {
+            yesButton { viewModel.deleteRoutine(name) }
             noButton {}
         }.show()
     }
 
 
-    private fun addExercise() {
+    private fun addRoutine() {
         with(dialogView) {
-            viewModel.addExercise(
-                    name.parseString(""),
-                    reps.parseString("5").toInt(),
-                    num_sets.parseString("3").toInt(),
-                    upper.isChecked,
-                    increment.parseString(when (upper.isChecked) {
-                        true -> "5.0"
-                        false -> "2.5"
-                    }).toDouble(),
-                    starting_weight.parseString("100").toDouble()
+            viewModel.addRoutine(
+                    name.parseString("")
             )
         }
     }

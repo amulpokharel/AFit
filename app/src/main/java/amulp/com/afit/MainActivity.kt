@@ -1,5 +1,6 @@
 package amulp.com.afit
 
+import amulp.com.afit.ui.main.CreateRoutineFragment
 import amulp.com.afit.ui.main.ListFragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ListFragment.newInstance())
+                    .replace(R.id.container, CreateRoutineFragment.newInstance())
                     .commitNow()
         }
     }

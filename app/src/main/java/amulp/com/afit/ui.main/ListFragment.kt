@@ -2,6 +2,7 @@ package amulp.com.afit.ui.main
 
 import amulp.com.afit.R
 import amulp.com.afit.adapters.RecycleAdapter
+import amulp.com.afit.models.Exercise
 import amulp.com.afit.utils.parseString
 import amulp.com.afit.utils.showKeyboard
 import android.os.Bundle
@@ -45,7 +46,7 @@ class ListFragment : Fragment(), LifecycleOwner {
 
         doAsync {
             recycleAdapter = RecycleAdapter(viewModel.getAllExercises()) {
-                deleteExercise(it.name)
+                deleteExercise((it as Exercise).name)
             }
 
             recyclerView.adapter = recycleAdapter
