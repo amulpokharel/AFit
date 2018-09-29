@@ -15,7 +15,7 @@ import io.objectbox.kotlin.query
 import io.objectbox.query.Query
 import org.jetbrains.anko.doAsync
 import android.R.attr.order
-
+import io.objectbox.exception.UniqueViolationException
 
 
 class MainViewModel : ViewModel() {
@@ -31,6 +31,7 @@ class MainViewModel : ViewModel() {
 
     }
 
+    @Throws(UniqueViolationException::class)
     fun addExercise(name:String, reps:Int, numSets:Int, upperBody:Boolean,increments:Double, startingWeight:Double){
         doAsync {
             val exercise = Exercise(0, name, reps, numSets, upperBody, increments, startingWeight)
@@ -63,7 +64,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getAllExercises():List<Exercise> {
-        return exerciseBox.query().build().find()
+        return exerciseBox.query().order(Exercise_.name).build().find()
     }
 
 

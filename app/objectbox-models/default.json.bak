@@ -14,7 +14,6 @@
         },
         {
           "id": "2:189045007039211794",
-          "indexId": "1:7240428334510386789",
           "name": "name"
         },
         {
@@ -42,7 +41,7 @@
     }
   ],
   "lastEntityId": "1:2998118849865524811",
-  "lastIndexId": "1:7240428334510386789",
+  "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

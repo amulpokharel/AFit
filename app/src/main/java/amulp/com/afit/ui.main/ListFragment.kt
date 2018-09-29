@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.add_exercise_dialog.view.*
 import kotlinx.android.synthetic.main.list_fragment.*
 import org.jetbrains.anko.*
+import org.jetbrains.anko.toast
+import java.lang.Exception
 
 
 class ListFragment : Fragment(), LifecycleOwner{
@@ -68,11 +70,19 @@ class ListFragment : Fragment(), LifecycleOwner{
                     Log.d("debug", "adding!")
                     doAsync {
                         if(!(dialogView.name.parseString("").isEmpty())) {
-                            addExercise()
-                            recycleAdapter.setData(viewModel.getAllExercises())
-                            Log.d("d", "added ${dialogView.name.text}")
+                            try {
+                                addExercise()
+                                recycleAdapter.setData(viewModel.getAllExercises())
+                                Log.d("d", "added ${dialogView.name.text}")
+                                uiThread { context!!.toast("added ${dialogView.name.text}") }
+                            }
+                            catch(e:Exception){
+                                uiThread { context!!.toast("didn't add") }
+                                Log.d("d", "didn't add")
+                            }
                         } else
                         {
+                            uiThread { context!!.toast("didn't add") }
                             Log.d("d", "didn't add")
                         }
                     }
