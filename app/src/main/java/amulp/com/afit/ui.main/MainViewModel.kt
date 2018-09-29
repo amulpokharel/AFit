@@ -24,35 +24,39 @@ class MainViewModel : ViewModel() {
     private var dayQuery: Query<Day> = dayBox.query { order(Day_.id) }
 
     private var exerciseLiveData: ObjectBoxLiveData<Exercise>? = null
+    private var routineLiveData: ObjectBoxLiveData<Routine>? = null
 
-    init {
-
-    }
+    //Add to boxes
 
     @Throws(UniqueViolationException::class)
     fun addExercise(name: String, reps: Int, numSets: Int, upperBody: Boolean, increments: Double, startingWeight: Double) {
         doAsync {
             val exercise = Exercise(0, name, reps, numSets, upperBody, increments, startingWeight)
             exerciseBox.put(exercise)
-            Log.d("added", "Exercise id is $exercise.id")
+            Log.d("adding", "Exercise id is $exercise.id")
         }
     }
 
+    @Throws(UniqueViolationException::class)
     fun addRoutine(name: String) {
         doAsync {
-            //routineDao.insert(Routine(name))
+            val routine = Routine(0, name)
+            routineBox.put(routine)
+            Log.d("adding", "Routine id is $routine.id")
         }
     }
+
+    //Delete from Boxes
 
     fun deleteExercise(exerciseName: String) {
         doAsync { exerciseBox.query().equal(Exercise_.name, exerciseName).build().remove() }
     }
 
     fun deleteRoutine(routineName: String) {
-        //doAsync { routineDao.deleteRoutine(routineName) }
+        doAsync { routineBox.query().equal(Routine_.name, routineName).build().remove() }
     }
 
-    //TODO stop calling dbs too often?
+    //Get LiveData
     fun getExercisesLive(): ObjectBoxLiveData<Exercise> {
         if (exerciseLiveData == null) {
             exerciseLiveData = ObjectBoxLiveData(exerciseBox.query().order(Exercise_.name).build())
@@ -61,17 +65,21 @@ class MainViewModel : ViewModel() {
         return exerciseLiveData!!
     }
 
+    fun getRoutineLive(): ObjectBoxLiveData<Routine> {
+        if (routineLiveData == null) {
+            routineLiveData = ObjectBoxLiveData(routineBox.query().order(Routine_.name).build())
+        }
+
+        return routineLiveData!!
+    }
+
+    //Get lists
+
     fun getAllExercises(): List<Exercise> {
         return exerciseBox.query().order(Exercise_.name).build().find()
     }
 
-
-/*    fun getRoutineLive() = routineDao.getAll()
-
-    fun getExercise(name:String) = exerciseDao.getExercise(name)
-
-    fun getRoutine(name:String) = routineDao.getRoutine(name)
-
-
-    fun getAllRoutines():List<Routine> = routineDao.getAllList()*/
+    fun getAllRoutines(): List<Routine> {
+        return routineBox.query().order(Routine_.name).build().find()
+    }
 }
