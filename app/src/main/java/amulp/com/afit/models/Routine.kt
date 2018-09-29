@@ -1,30 +1,14 @@
 package amulp.com.afit.models
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "routines")
 data class Routine(
-        @PrimaryKey
         val name:String = "",
 
-        @Embedded
-        var days: MutableList<Day> = mutableListOf<Day>(),
-
-        var currDay:Int = 0,
-
-        @Embedded
-        val sets:MutableList<ExerciseSet> = mutableListOf<ExerciseSet>()
+        var days: MutableList<Array<Int>>,
+        var currDay:Int = 0
 )
 {
-    fun addDay(exercises:MutableList<String>){
-        days.add(Day(days.size + 1, exercises))
-    }
-
-    fun addSet(exerciseSet: ExerciseSet){
-        sets.add(exerciseSet)
-        currDay++
+    fun addDay(arr: Array<Int>){
+        days.add(arr)
     }
 
     fun incrementDay() = currDay++

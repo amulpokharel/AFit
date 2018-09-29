@@ -1,13 +1,12 @@
 package amulp.com.afit.models
 
-import androidx.room.Entity
 import com.squareup.moshi.JsonClass
 import org.threeten.bp.LocalDateTime
 
-@Entity
 @JsonClass(generateAdapter = true)
 data class ExerciseSet(
-        val exercise:String = "",
+        val id:Int = 0,
+
         val weight:Double = 0.0,
         val setNumber:Int = 1,
         val reps:Int = 1,
