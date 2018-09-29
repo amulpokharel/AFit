@@ -6,11 +6,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
+import io.objectbox.exception.UniqueViolationException
 import io.objectbox.kotlin.boxFor
 import io.objectbox.kotlin.query
 import io.objectbox.query.Query
 import org.jetbrains.anko.doAsync
-import io.objectbox.exception.UniqueViolationException
 
 
 class MainViewModel : ViewModel() {

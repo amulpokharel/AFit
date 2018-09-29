@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.add_exercise_dialog.view.*
 import kotlinx.android.synthetic.main.list_fragment.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.toast
-import java.lang.Exception
 
 
 class ListFragment : Fragment(), LifecycleOwner{
