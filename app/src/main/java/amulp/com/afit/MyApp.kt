@@ -9,8 +9,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import io.objectbox.android.AndroidObjectBrowser
 
 
-
-class MyApp: Application() {
+class MyApp : Application() {
 
     init {
         instance = this
@@ -19,7 +18,7 @@ class MyApp: Application() {
     companion object {
         private var instance: MyApp? = null
         @JvmStatic
-        fun getAppContext() : Context =  instance!!.applicationContext
+        fun getAppContext(): Context = instance!!.applicationContext
     }
 
     override fun onCreate() {

@@ -6,8 +6,8 @@ import io.objectbox.BoxStore
 
 object ObjectBox {
 
-    lateinit var boxStore:BoxStore
-    private set
+    lateinit var boxStore: BoxStore
+        private set
 
     fun build(context: Context) {
         boxStore = MyObjectBox.builder().androidContext(context.applicationContext).build()

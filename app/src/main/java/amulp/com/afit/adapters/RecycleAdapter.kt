@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.exercise_item.view.*
 
 
-
 class RecycleAdapter(var items: List<Exercise>, val listener: (Exercise) -> Unit)
     : RecyclerView.Adapter<RecycleAdapter.ViewHolder>() {
 
@@ -24,7 +23,7 @@ class RecycleAdapter(var items: List<Exercise>, val listener: (Exercise) -> Unit
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Exercise, listener: (Exercise) -> Unit) = with(itemView) {
 
             firstLine.text = item.name

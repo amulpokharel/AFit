@@ -7,15 +7,14 @@ import io.objectbox.relation.ToMany
 
 @Entity
 data class Routine(
-        @Id var id:Long = 0,
-        @Unique val name:String = "",
+        @Id var id: Long = 0,
+        @Unique val name: String = "",
 
-        var currDay:Int = 0
-)
-{
-    var days:ToMany<Day>? = null
+        var currDay: Int = 0
+) {
+    var days: ToMany<Day>? = null
 
-    fun getNumDays():Int{
+    fun getNumDays(): Int {
         if (days.isNullOrEmpty())
             return days!!.size
         return 0

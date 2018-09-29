@@ -11,14 +11,12 @@ fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
 }
 
-fun EditText.parseString(defaultStr:String?):String{
-    if(this.text.toString().isNullOrEmpty())
+fun EditText.parseString(defaultStr: String?): String {
+    if (this.text.toString().isNullOrEmpty())
         return defaultStr!!
     else
         return this.text.toString()
 }
-
-
 
 
 /**
@@ -38,7 +36,8 @@ fun View.hideKeyboard(): Boolean {
     try {
         val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
-    } catch (ignored: RuntimeException) { }
+    } catch (ignored: RuntimeException) {
+    }
     return false
 }
 

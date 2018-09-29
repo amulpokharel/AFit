@@ -20,14 +20,14 @@ import kotlinx.android.synthetic.main.list_fragment.*
 import org.jetbrains.anko.*
 
 
-class ListFragment : Fragment(), LifecycleOwner{
+class ListFragment : Fragment(), LifecycleOwner {
     companion object {
         fun newInstance() = ListFragment()
     }
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var recycleAdapter:RecycleAdapter
-    private lateinit var dialogView:View
+    private lateinit var recycleAdapter: RecycleAdapter
+    private lateinit var dialogView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -55,7 +55,7 @@ class ListFragment : Fragment(), LifecycleOwner{
 
     }
 
-    private fun showAddDialog(){
+    private fun showAddDialog() {
         val layoutInflater = LayoutInflater.from(context)
         dialogView = layoutInflater.inflate(R.layout.add_exercise_dialog, null)
         val alertBuilder = AlertDialog.Builder(context!!)
@@ -67,19 +67,17 @@ class ListFragment : Fragment(), LifecycleOwner{
                 .setPositiveButton("Add") { _, _ ->
                     Log.d("debug", "adding!")
                     doAsync {
-                        if(!(dialogView.name.parseString("").isEmpty())) {
+                        if (!(dialogView.name.parseString("").isEmpty())) {
                             try {
                                 addExercise()
                                 recycleAdapter.setData(viewModel.getAllExercises())
                                 Log.d("d", "added ${dialogView.name.text}")
                                 uiThread { context!!.toast("added ${dialogView.name.text}") }
-                            }
-                            catch(e:Exception){
+                            } catch (e: Exception) {
                                 uiThread { context!!.toast("didn't add") }
                                 Log.d("d", "didn't add")
                             }
-                        } else
-                        {
+                        } else {
                             uiThread { context!!.toast("didn't add") }
                             Log.d("d", "didn't add")
                         }
@@ -88,15 +86,15 @@ class ListFragment : Fragment(), LifecycleOwner{
                 }
 
                 .setNegativeButton("Cancel"
-                ) {
-                    dialogBox, _ -> dialogBox.cancel()
+                ) { dialogBox, _ ->
+                    dialogBox.cancel()
                 }
                 .create()
                 .show()
         dialogView.showKeyboard()
     }
 
-    private fun deleteExercise(name:String){
+    private fun deleteExercise(name: String) {
         context!!.alert("Are you sure?", "Deleting exercise") {
             yesButton { viewModel.deleteExercise(name) }
             noButton {}
@@ -104,14 +102,14 @@ class ListFragment : Fragment(), LifecycleOwner{
     }
 
 
-    private fun addExercise(){
-        with(dialogView){
+    private fun addExercise() {
+        with(dialogView) {
             viewModel.addExercise(
                     name.parseString(""),
                     reps.parseString("5").toInt(),
                     num_sets.parseString("3").toInt(),
                     upper.isChecked,
-                    increment.parseString(when(upper.isChecked){
+                    increment.parseString(when (upper.isChecked) {
                         true -> "5.0"
                         false -> "2.5"
                     }).toDouble(),

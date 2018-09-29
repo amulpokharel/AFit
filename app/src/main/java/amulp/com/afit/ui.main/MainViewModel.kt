@@ -16,21 +16,21 @@ import org.jetbrains.anko.doAsync
 class MainViewModel : ViewModel() {
 
     private var exerciseBox: Box<Exercise> = ObjectBox.boxStore.boxFor()
-    private var routineBox:Box<Routine> = ObjectBox.boxStore.boxFor()
-    private var dayBox:Box<Day> = ObjectBox.boxStore.boxFor()
+    private var routineBox: Box<Routine> = ObjectBox.boxStore.boxFor()
+    private var dayBox: Box<Day> = ObjectBox.boxStore.boxFor()
 
-    private var exerciseQuery:Query<Exercise> = exerciseBox.query { order(Exercise_.name) }
-    private var routeQuery:Query<Routine> = routineBox.query { order(Routine_.name) }
-    private var dayQuery:Query<Day> = dayBox.query { order(Day_.id) }
+    private var exerciseQuery: Query<Exercise> = exerciseBox.query { order(Exercise_.name) }
+    private var routeQuery: Query<Routine> = routineBox.query { order(Routine_.name) }
+    private var dayQuery: Query<Day> = dayBox.query { order(Day_.id) }
 
-    private var exerciseLiveData:ObjectBoxLiveData<Exercise>? = null
+    private var exerciseLiveData: ObjectBoxLiveData<Exercise>? = null
 
     init {
 
     }
 
     @Throws(UniqueViolationException::class)
-    fun addExercise(name:String, reps:Int, numSets:Int, upperBody:Boolean,increments:Double, startingWeight:Double){
+    fun addExercise(name: String, reps: Int, numSets: Int, upperBody: Boolean, increments: Double, startingWeight: Double) {
         doAsync {
             val exercise = Exercise(0, name, reps, numSets, upperBody, increments, startingWeight)
             exerciseBox.put(exercise)
@@ -38,30 +38,30 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun addRoutine(name:String){
+    fun addRoutine(name: String) {
         doAsync {
             //routineDao.insert(Routine(name))
         }
     }
 
-    fun deleteExercise(exerciseName:String) {
-        doAsync {exerciseBox.query().equal(Exercise_.name, exerciseName).build().remove()}
+    fun deleteExercise(exerciseName: String) {
+        doAsync { exerciseBox.query().equal(Exercise_.name, exerciseName).build().remove() }
     }
 
-    fun deleteRoutine(routineName:String){
+    fun deleteRoutine(routineName: String) {
         //doAsync { routineDao.deleteRoutine(routineName) }
     }
 
     //TODO stop calling dbs too often?
-    fun getExercisesLive() : ObjectBoxLiveData<Exercise>  {
-        if (exerciseLiveData == null){
+    fun getExercisesLive(): ObjectBoxLiveData<Exercise> {
+        if (exerciseLiveData == null) {
             exerciseLiveData = ObjectBoxLiveData(exerciseBox.query().order(Exercise_.name).build())
         }
 
         return exerciseLiveData!!
     }
 
-    fun getAllExercises():List<Exercise> {
+    fun getAllExercises(): List<Exercise> {
         return exerciseBox.query().order(Exercise_.name).build().find()
     }
 

@@ -22,7 +22,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
 
-class CreateRoutineFragment: Fragment(), LifecycleOwner {
+class CreateRoutineFragment : Fragment(), LifecycleOwner {
     companion object {
         fun newInstance() = CreateRoutineFragment()
     }
@@ -57,7 +57,7 @@ class CreateRoutineFragment: Fragment(), LifecycleOwner {
 
     }
 
-    private fun showAddDialog(){
+    private fun showAddDialog() {
         val layoutInflater = LayoutInflater.from(context)
         dialogView = layoutInflater.inflate(R.layout.add_routine_dialog, null)
         val alertBuilder = AlertDialog.Builder(context!!)
@@ -69,12 +69,11 @@ class CreateRoutineFragment: Fragment(), LifecycleOwner {
                 .setPositiveButton("Add") { _, _ ->
                     Log.d("debug", "adding!")
                     doAsync {
-                        if(!(dialogView.name.parseString("").isEmpty())) {
+                        if (!(dialogView.name.parseString("").isEmpty())) {
                             addExercise()
                             recycleAdapter.setData(viewModel.getAllExercises())
                             Log.d("d", "added ${dialogView.name.text}")
-                        } else
-                        {
+                        } else {
                             Log.d("d", "didn't add")
                         }
                     }
@@ -82,15 +81,15 @@ class CreateRoutineFragment: Fragment(), LifecycleOwner {
                 }
 
                 .setNegativeButton("Cancel"
-                ) {
-                    dialogBox, _ -> dialogBox.cancel()
+                ) { dialogBox, _ ->
+                    dialogBox.cancel()
                 }
                 .create()
                 .show()
         dialogView.showKeyboard()
     }
 
-    private fun deleteExercise(name:String){
+    private fun deleteExercise(name: String) {
         context!!.alert("Are you sure?", "Deleting exercise") {
             yesButton { viewModel.deleteExercise(name) }
             noButton {}
@@ -98,14 +97,14 @@ class CreateRoutineFragment: Fragment(), LifecycleOwner {
     }
 
 
-    private fun addExercise(){
-        with(dialogView){
+    private fun addExercise() {
+        with(dialogView) {
             viewModel.addExercise(
                     name.parseString(""),
                     reps.parseString("5").toInt(),
                     num_sets.parseString("3").toInt(),
                     upper.isChecked,
-                    increment.parseString(when(upper.isChecked){
+                    increment.parseString(when (upper.isChecked) {
                         true -> "5.0"
                         false -> "2.5"
                     }).toDouble(),
