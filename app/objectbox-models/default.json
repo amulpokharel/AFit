@@ -39,11 +39,62 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:5989520433786929296",
+      "lastPropertyId": "3:8257659335159452495",
+      "name": "Routine",
+      "properties": [
+        {
+          "id": "1:8713696090363810043",
+          "name": "id"
+        },
+        {
+          "id": "2:6384624356839045257",
+          "indexId": "2:2148945768718368042",
+          "name": "name"
+        },
+        {
+          "id": "3:8257659335159452495",
+          "name": "currDay"
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:8902977455317880632",
+          "name": "days"
+        }
+      ]
+    },
+    {
+      "id": "3:1238154167674571301",
+      "lastPropertyId": "3:3389078866075085382",
+      "name": "Day",
+      "properties": [
+        {
+          "id": "1:1918919149926087502",
+          "name": "id"
+        },
+        {
+          "id": "2:6325251952278055751",
+          "name": "name"
+        },
+        {
+          "id": "3:3389078866075085382",
+          "name": "dayNumber"
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:2375502296684121191",
+          "name": "exercises"
+        }
+      ]
     }
   ],
-  "lastEntityId": "1:2998118849865524811",
-  "lastIndexId": "1:7240428334510386789",
-  "lastRelationId": "0:0",
+  "lastEntityId": "3:1238154167674571301",
+  "lastIndexId": "2:2148945768718368042",
+  "lastRelationId": "2:8902977455317880632",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,

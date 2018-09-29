@@ -14,6 +14,7 @@
         },
         {
           "id": "2:189045007039211794",
+          "indexId": "1:7240428334510386789",
           "name": "name"
         },
         {
@@ -38,10 +39,31 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:5989520433786929296",
+      "lastPropertyId": "3:8257659335159452495",
+      "name": "Routine",
+      "properties": [
+        {
+          "id": "1:8713696090363810043",
+          "name": "id"
+        },
+        {
+          "id": "2:6384624356839045257",
+          "indexId": "2:2148945768718368042",
+          "name": "name"
+        },
+        {
+          "id": "3:8257659335159452495",
+          "name": "currDay"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:2998118849865524811",
-  "lastIndexId": "0:0",
+  "lastEntityId": "2:5989520433786929296",
+  "lastIndexId": "2:2148945768718368042",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

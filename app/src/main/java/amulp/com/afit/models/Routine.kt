@@ -1,19 +1,26 @@
 package amulp.com.afit.models
 
-data class Routine(
-        val name:String = "",
+import io.objectbox.annotation.Entity
+import io.objectbox.annotation.Id
+import io.objectbox.annotation.Unique
+import io.objectbox.relation.ToMany
 
-        var days: MutableList<Array<Int>>,
+@Entity
+data class Routine(
+        @Id var id:Long = 0,
+        @Unique val name:String = "",
+
         var currDay:Int = 0
 )
 {
-    fun addDay(arr: Array<Int>){
-        days.add(arr)
+    var days:ToMany<Day>? = null
+
+    fun getNumDays():Int{
+        if (days.isNullOrEmpty())
+            return days!!.size
+        return 0
     }
 
-    fun incrementDay() = currDay++
-
-    fun nextDay() = currDay % days.size
 }
 
 

@@ -1,12 +1,8 @@
 package amulp.com.afit.ui.main
 
-import amulp.com.afit.MyApp
 import amulp.com.afit.db.ObjectBox
-import amulp.com.afit.models.Exercise
-import amulp.com.afit.models.Exercise_
-import amulp.com.afit.models.Routine
+import amulp.com.afit.models.*
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import io.objectbox.Box
 import io.objectbox.android.ObjectBoxLiveData
@@ -14,16 +10,18 @@ import io.objectbox.kotlin.boxFor
 import io.objectbox.kotlin.query
 import io.objectbox.query.Query
 import org.jetbrains.anko.doAsync
-import android.R.attr.order
 import io.objectbox.exception.UniqueViolationException
 
 
 class MainViewModel : ViewModel() {
 
     private var exerciseBox: Box<Exercise> = ObjectBox.boxStore.boxFor()
-    private var exerciseQuery:Query<Exercise> = exerciseBox.query {
-        order(Exercise_.name)
-    }
+    private var routineBox:Box<Routine> = ObjectBox.boxStore.boxFor()
+    private var dayBox:Box<Day> = ObjectBox.boxStore.boxFor()
+
+    private var exerciseQuery:Query<Exercise> = exerciseBox.query { order(Exercise_.name) }
+    private var routeQuery:Query<Routine> = routineBox.query { order(Routine_.name) }
+    private var dayQuery:Query<Day> = dayBox.query { order(Day_.id) }
 
     private var exerciseLiveData:ObjectBoxLiveData<Exercise>? = null
 
