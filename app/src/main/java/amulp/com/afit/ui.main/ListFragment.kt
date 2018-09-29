@@ -67,7 +67,7 @@ class ListFragment : Fragment(), LifecycleOwner{
                 .setPositiveButton("Add") { _, _ ->
                     Log.d("debug", "adding!")
                     doAsync {
-                        if(!(dialogView.name.parseString("").isEmpty()) && viewModel.getExercise(dialogView.name.text.toString()) == null) {
+                        if(!(dialogView.name.parseString("").isEmpty())) {
                             addExercise()
                             recycleAdapter.setData(viewModel.getAllExercises())
                             Log.d("d", "added ${dialogView.name.text}")

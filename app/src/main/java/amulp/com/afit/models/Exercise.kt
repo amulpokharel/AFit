@@ -1,6 +1,11 @@
 package amulp.com.afit.models
 
+import io.objectbox.annotation.Entity
+import io.objectbox.annotation.Id
+
+@Entity
 data class Exercise(
+        @Id var id: Long = 0,
         val name:String = "",
         val reps:Int = 5,
         val numSets:Int = 3,
@@ -11,9 +16,6 @@ data class Exercise(
         },
         var currentWeight:Double = 0.0
 ){
-
-    val id:Int = 0
-
     fun deload(){
         currentWeight*=0.90
     }

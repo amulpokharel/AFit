@@ -1,54 +1,78 @@
 package amulp.com.afit.ui.main
 
 import amulp.com.afit.MyApp
+import amulp.com.afit.db.ObjectBox
 import amulp.com.afit.models.Exercise
+import amulp.com.afit.models.Exercise_
 import amulp.com.afit.models.Routine
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import io.objectbox.Box
+import io.objectbox.android.ObjectBoxLiveData
+import io.objectbox.kotlin.boxFor
+import io.objectbox.kotlin.query
+import io.objectbox.query.Query
 import org.jetbrains.anko.doAsync
+import android.R.attr.order
+
+
 
 class MainViewModel : ViewModel() {
-    private val exerciseDao = MyApp.exerciseDb!!.exerciseDao()
-    private val routineDao  = MyApp.routineDb!!.routineDao()
-    val exercises:LiveData<List<Exercise>>
-    val routines:LiveData<List<Routine>>
+
+    private var exerciseBox: Box<Exercise> = ObjectBox.boxStore.boxFor()
+    private var exerciseQuery:Query<Exercise> = exerciseBox.query {
+        order(Exercise_.name)
+    }
+
+    private var exerciseLiveData:ObjectBoxLiveData<Exercise>? = null
 
     init {
-        //TODO set up DAOs later?
-        exercises = exerciseDao.getAll()
-        routines = routineDao.getAll()
+
     }
 
     fun addExercise(name:String, reps:Int, numSets:Int, upperBody:Boolean,increments:Double, startingWeight:Double){
         doAsync {
-            exerciseDao.insert(Exercise(name, reps, numSets, upperBody, increments, startingWeight))
+            val exercise = Exercise(0, name, reps, numSets, upperBody, increments, startingWeight)
+            exerciseBox.put(exercise)
+            Log.d("added", "Exercise id is $exercise.id")
         }
     }
 
     fun addRoutine(name:String){
         doAsync {
-            routineDao.insert(Routine(name))
+            //routineDao.insert(Routine(name))
         }
     }
 
     fun deleteExercise(exerciseName:String) {
-        doAsync { exerciseDao.deleteExercise(exerciseName) }
+        doAsync {exerciseBox.query().equal(Exercise_.name, exerciseName).build().remove()}
     }
 
     fun deleteRoutine(routineName:String){
-        doAsync { routineDao.deleteRoutine(routineName) }
+        //doAsync { routineDao.deleteRoutine(routineName) }
     }
 
     //TODO stop calling dbs too often?
-    fun getExercisesLive() = exerciseDao.getAll()
+    fun getExercisesLive() : ObjectBoxLiveData<Exercise>  {
+        if (exerciseLiveData == null){
+            exerciseLiveData = ObjectBoxLiveData(exerciseBox.query().order(Exercise_.name).build())
+        }
 
-    fun getRoutineLive() = routineDao.getAll()
+        return exerciseLiveData!!
+    }
+
+    fun getAllExercises():List<Exercise> {
+        return exerciseBox.query().build().find()
+    }
+
+
+/*    fun getRoutineLive() = routineDao.getAll()
 
     fun getExercise(name:String) = exerciseDao.getExercise(name)
 
     fun getRoutine(name:String) = routineDao.getRoutine(name)
 
-    fun getAllExercises():List<Exercise> = exerciseDao.getAllList()
 
-    fun getAllRoutines():List<Routine> = routineDao.getAllList()
+    fun getAllRoutines():List<Routine> = routineDao.getAllList()*/
 }

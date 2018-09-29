@@ -1,11 +1,14 @@
 package amulp.com.afit
 
-import amulp.com.afit.db.ExerciseDb
-import amulp.com.afit.db.RoutineDb
+import amulp.com.afit.db.ObjectBox
 import android.app.Application
 import android.content.Context
-import com.facebook.stetho.Stetho
+import android.util.Log
+//import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
+import io.objectbox.android.AndroidObjectBrowser
+
+
 
 class MyApp: Application() {
 
@@ -15,9 +18,6 @@ class MyApp: Application() {
 
     companion object {
         private var instance: MyApp? = null
-        var exerciseDb:ExerciseDb? = null
-        var routineDb:RoutineDb? = null
-
         @JvmStatic
         fun getAppContext() : Context =  instance!!.applicationContext
     }
@@ -25,10 +25,13 @@ class MyApp: Application() {
     override fun onCreate() {
         super.onCreate()
         val context: Context = MyApp.getAppContext()
-        exerciseDb = ExerciseDb.getInstance(instance!!.applicationContext)
-        routineDb = RoutineDb.getInstance(instance!!.applicationContext)
+        ObjectBox.build(this)
 
+        if (BuildConfig.DEBUG) {
+            val started = AndroidObjectBrowser(ObjectBox.boxStore).start(this)
+            Log.i("ObjectBrowser", "Started: $started")
+        }
         AndroidThreeTen.init(this)
-        Stetho.initializeWithDefaults(this)
+        //Stetho.initializeWithDefaults(this)
     }
 }

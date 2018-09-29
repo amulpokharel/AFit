@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="amulp.com.afit">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- When targeting API 28 or higher -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
