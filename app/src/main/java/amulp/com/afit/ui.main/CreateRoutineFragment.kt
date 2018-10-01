@@ -18,10 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.add_exercise_dialog.view.*
 import kotlinx.android.synthetic.main.list_fragment.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.yesButton
+import org.jetbrains.anko.*
 
 class CreateRoutineFragment : Fragment(), LifecycleOwner {
     companion object {
@@ -47,15 +44,21 @@ class CreateRoutineFragment : Fragment(), LifecycleOwner {
         })
 
         doAsync {
-            recycleAdapter = RecycleAdapter(viewModel.getAllRoutines()) {
+            recycleAdapter = RecycleAdapter(viewModel.getAllRoutines(), {
                 deleteRoutine((it as Routine).name)
-            }
+            },{
+                editRoutine((it as Routine).name)
+            })
 
             recyclerView.adapter = recycleAdapter
         }
 
         fab.setOnClickListener { showAddDialog() }
 
+    }
+
+    private fun editRoutine(name: String){
+        context!!.toast("clicked $name")
     }
 
     private fun showAddDialog() {

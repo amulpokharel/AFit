@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.routine_item.view.*
 import kotlinx.android.synthetic.main.exercise_item.view.*
 
 
-class RecycleAdapter(var items: List<Any>, val listener: (Any) -> Unit)
+class RecycleAdapter(var items: List<Any>, private val deleteListener: (Any) -> Unit, private val editListener: (Any) -> Unit)
     : RecyclerView.Adapter<RecycleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when(items.first()){
@@ -20,7 +20,7 @@ class RecycleAdapter(var items: List<Any>, val listener: (Any) -> Unit)
         else -> ViewHolder(parent.inflate(R.layout.exercise_item))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], listener)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], deleteListener, editListener)
 
     override fun getItemCount() = items.size
 
@@ -30,16 +30,17 @@ class RecycleAdapter(var items: List<Any>, val listener: (Any) -> Unit)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Any, listener: (Any) -> Unit) = with(itemView) {
+        fun bind(item: Any, deleteListener: (Any) -> Unit, editListener: (Any) -> Unit) = with(itemView) {
             if(item is Exercise){
                 exerciseFirstLine.text = item.name
                 exerciseSecondLine.text = item.toString()
-                exerciseDeleteButton.setOnClickListener { listener(item) }
+                exerciseDeleteButton.setOnClickListener { deleteListener(item) }
             }
             else if( item is Routine){
                 routineFirstLine.text = item.name
                 routineSecondLine.text = item.toString()
-                routineDeleteButton.setOnClickListener{listener(item)}
+                routineDeleteButton.setOnClickListener{deleteListener(item)}
+                routineEditButton.setOnClickListener {editListener(item)}
             }
         }
     }

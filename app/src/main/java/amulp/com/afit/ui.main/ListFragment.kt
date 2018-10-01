@@ -45,9 +45,11 @@ class ListFragment : Fragment(), LifecycleOwner {
         })
 
         doAsync {
-            recycleAdapter = RecycleAdapter(viewModel.getAllExercises()) {
+            recycleAdapter = RecycleAdapter(viewModel.getAllExercises(), {
                 deleteExercise((it as Exercise).name)
-            }
+            },{
+                //TODO add edit function?
+            })
 
             recyclerView.adapter = recycleAdapter
         }
