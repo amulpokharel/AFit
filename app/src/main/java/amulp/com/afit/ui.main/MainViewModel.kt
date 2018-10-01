@@ -46,10 +46,13 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    //get Entry
+
     //Delete from Boxes
 
     fun deleteExercise(exerciseName: String) {
-        doAsync { exerciseBox.query().equal(Exercise_.name, exerciseName).build().remove() }
+        doAsync {
+            exerciseBox.query().equal(Exercise_.name, exerciseName).build().remove() }
     }
 
     fun deleteRoutine(routineName: String) {
