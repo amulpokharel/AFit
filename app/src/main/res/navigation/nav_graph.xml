@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/createRoutineFragment">
+    <fragment
+        android:id="@+id/createRoutineFragment"
+        android:name="amulp.com.afit.ui.main.CreateRoutineFragment"
+        android:label="CreateRoutineFragment" >
+        <action
+            android:id="@+id/action_createRoutineFragment_to_listFragment"
+            app:destination="@+id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="amulp.com.afit.ui.main.ListFragment"
+        android:label="ListFragment">
+        <argument
+            android:name="routineToPass"
+            android:defaultValue="Routini"
+            app:argType="string" />
+    </fragment>
+</navigation>

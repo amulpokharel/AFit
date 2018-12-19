@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.add_exercise_dialog.view.*
 import kotlinx.android.synthetic.main.list_fragment.*
@@ -58,6 +60,9 @@ class CreateRoutineFragment : Fragment(), LifecycleOwner {
     }
 
     private fun editRoutine(name: String){
+        val directions = CreateRoutineFragmentDirections.actionCreateRoutineFragmentToListFragment()
+        directions.routineToPass = name
+        findNavController().navigate(directions)
         context!!.toast("clicked $name")
     }
 

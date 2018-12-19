@@ -29,6 +29,7 @@ class ListFragment : Fragment(), LifecycleOwner {
     private lateinit var viewModel: MainViewModel
     private lateinit var recycleAdapter: RecycleAdapter
     private lateinit var dialogView: View
+    private lateinit var routineName:String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -43,6 +44,14 @@ class ListFragment : Fragment(), LifecycleOwner {
         viewModel.getExercisesLive().observe(this@ListFragment, Observer { exercises ->
             recycleAdapter.setData(exercises)
         })
+
+        val args =ListFragmentArgs.fromBundle(arguments!!)
+        routineName = args.routineToPass
+
+        if(routineName!= null)
+            toolbarText.text =routineName
+        else
+            toolbarText.text = "Edit Routine"
 
         doAsync {
             recycleAdapter = RecycleAdapter(viewModel.getAllExercises(), {
