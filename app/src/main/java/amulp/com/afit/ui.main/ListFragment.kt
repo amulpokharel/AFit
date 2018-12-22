@@ -48,10 +48,6 @@ class ListFragment : Fragment(), LifecycleOwner {
         val args =ListFragmentArgs.fromBundle(arguments!!)
         routineName = args.routineToPass
 
-        if(routineName!= null)
-            toolbarText.text =routineName
-        else
-            toolbarText.text = "Edit Routine"
 
         doAsync {
             recycleAdapter = RecycleAdapter(viewModel.getAllExercises(), {

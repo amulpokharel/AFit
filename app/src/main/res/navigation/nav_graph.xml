@@ -3,22 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/createRoutineFragment">
+    app:startDestination="@id/create_routine_fragment">
     <fragment
-        android:id="@+id/createRoutineFragment"
-        android:name="amulp.com.afit.ui.main.CreateRoutineFragment"
-        android:label="CreateRoutineFragment" >
+            android:id="@+id/create_routine_fragment"
+            android:name="amulp.com.afit.ui.main.CreateRoutineFragment"
+            android:label="Manage Routine">
         <action
-            android:id="@+id/action_createRoutineFragment_to_listFragment"
-            app:destination="@+id/listFragment" />
+                android:id="@+id/action_createRoutineFragment_to_listFragment"
+                app:destination="@+id/list_fragment"/>
     </fragment>
     <fragment
-        android:id="@+id/listFragment"
-        android:name="amulp.com.afit.ui.main.ListFragment"
-        android:label="ListFragment">
+            android:name="amulp.com.afit.ui.main.ListFragment"
+            android:label="Edit {routineToPass}" android:id="@+id/list_fragment">
         <argument
-            android:name="routineToPass"
-            android:defaultValue="Routini"
-            app:argType="string" />
+                android:name="routineToPass"
+                android:defaultValue="Routini"
+                app:argType="string"/>
     </fragment>
 </navigation>
